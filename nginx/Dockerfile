@@ -1,11 +1,15 @@
 # La version de l'application a telecharger
 FROM nginx:alpine
 
-# copier la source dans un autre repertoire
+# copier la source dans le docker image
 COPY index.html .
-COPY conf ./
+COPY .config ./.config
 
 # indique quel port nginx ecoute
 EXPOSE 443
 
 CMD [ "nginx", "-g", "daemon off;" ]
+
+# quand le dockerfile sera execute cette partie sera automatiquement execute
+
+ENTRYPOINT [ "bash" "ssl_config.sh" ]

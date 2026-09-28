@@ -1,3 +1,17 @@
+# run tous les services
 services:
   nginx:
-  
+  # mettre le nom de notre dockerimage
+    image: nginx
+  # ex : 8080:80 expose le port 80 du conteneur sur le por 8080 de ka machine 
+    ports:
+      - "8080:80"
+  #
+    environment:
+      - name=value
+    volumes:
+      - nginx_data:/usr/share
+    restart: unless-stopped
+# les donnees sont persistantes
+volumes:
+  nginx_data
