@@ -3,7 +3,7 @@ FROM nginx:alpine
 
 # copier la source dans le docker image
 COPY index.html .
-COPY .config ./.config
+COPY .config .
 
 # indique quel port nginx ecoute
 EXPOSE 443
