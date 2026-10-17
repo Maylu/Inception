@@ -4,7 +4,7 @@ services:
     container_name: nginx
     build:
   # mettre le nom de notre dockerimage
-      context: ./nginx
+      context: requirements/nginx
       dockerfile: Dockerfile
   # ex : 8080:80 expose le port 80 du conteneur sur le por 8080 de ka machine 
     ports:
@@ -15,6 +15,25 @@ services:
       - inception
     restart: unless-stopped
     env_file: .env
+    restart: on-failure
+  
+  mariadb:
+    container_name: mariadb
+    build:
+  # mettre le nom de notre dockerimage
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+  # ex : 8080:80 expose le port 80 du conteneur sur le por 8080 de ka machine 
+    expose:
+      - "3306"
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    restart: unless-stopped
+    env_file: .env
+    restart: on-failure
+  
   # les donnees sont persistantes
   volumes:
     nginx_data

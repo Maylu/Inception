@@ -7,15 +7,14 @@ RUN apt-get update && apt-get install -y openssl
 RUN usermod -u 33 www-data && groupmod -g 33 www-data
 
 # copier la source dans le docker image
-COPY index.html /usr/share/nginx/html/index.html
+COPY ./conf/index.html /usr/share/nginx/html/index.html
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./tools/ssl_config.sh /usr/local/bin/
+COPY ./conf/ssl_config.sh /usr/local/bin/
 
 RUN mkdir -p /etc/nginx/ssl
 
 # indique quel port nginx ecoute
 EXPOSE 443
-
 
 CMD [ "nginx", "-g", "daemon off;" ]
 
