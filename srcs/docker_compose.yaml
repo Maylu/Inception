@@ -10,13 +10,34 @@ services:
     ports:
       - "443:443"
     volumes:
-      - nginx_data:/usr/share
+      - wordpress:/var/www/wordpress
     networks:
       - inception
     restart: unless-stopped
     env_file: .env
     restart: on-failure
-  
+
+  wordpress:
+    container_name: wordpress
+    build:
+  # mettre le nom de notre dockerimage
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+  # ex : 8080:80 expose le port 80 du conteneur sur le por 8080 de ka machine 
+    expose:
+      - "9000"
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    secrets:
+      - db_password
+      - db_root_password
+    depends on: 
+      - mariadb
+    env_file: .env
+    restart: on-failure
+
   mariadb:
     container_name: mariadb
     build:
@@ -30,10 +51,29 @@ services:
       - mariadb:/var/lib/mysql
     networks:
       - inception
+    secrets:
+      - db_password
+      - db_root_password
     restart: unless-stopped
     env_file: .env
-    restart: on-failure
   
   # les donnees sont persistantes
-  volumes:
-    nginx_data
+volumes:
+    mariadb:
+      driver: local
+      driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/Users/login/data/mariadb'
+    wordpress:
+      driver: local
+      driver_opts:
+      type: 'none'
+      o: 'bind
+      device: '/Users/login/data/wordpress'
+
+secrets:
+  db_password:
+    file: ..secrets/db_password.txt
+  db_root_password:
+    file: ..secrets/db_root_password.txt
