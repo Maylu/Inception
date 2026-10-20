@@ -10,7 +10,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/data/www/wordpress
     networks:
       - inception
     restart: unless-stopped
@@ -27,7 +27,7 @@ services:
     expose:
       - "9000"
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/data/www/wordpress
     networks:
       - inception
     secrets:
@@ -64,13 +64,13 @@ volumes:
       driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/login/data/mariadb'
+      device: '/Users/vboxuser/data/mariadb'
     wordpress:
       driver: local
       driver_opts:
       type: 'none'
       o: 'bind
-      device: '/Users/login/data/wordpress'
+      device: '/Users/vboxuser/data/wordpress'
 
 secrets:
   db_password:
