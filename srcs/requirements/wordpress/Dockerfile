@@ -10,7 +10,9 @@ RUN apt-get -y install mariadb-client
 RUN wget https://fr.wordpress.org/wordpress-7.1.3-fr_FR.tar.gz -P /data/www
 RUN cd /data/www && tar -xzf wordpress-7.1.3-fr_FR.tar.gz && rm wordpress-7.1.3-fr_FR.tar.gz
 RUN chown -R root:root /data/www/wordpress
-
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
 # copier la source dans le docker image
 #COPY ./conf/index.html /usr/share/nginx/html/index.html
 #COPY ./conf/nginx.conf /etc/nginx/nginx.conf
