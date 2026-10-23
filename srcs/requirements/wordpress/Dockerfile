@@ -7,25 +7,26 @@ RUN apt-get -y install php8.2
 RUN apt-get -y install php-fpm
 RUN apt-get -y install php-mysql
 RUN apt-get -y install mariadb-client
-RUN wget https://fr.wordpress.org/wordpress-7.1.3-fr_FR.tar.gz -P /data/www
-RUN cd /data/www && tar -xzf wordpress-7.1.3-fr_FR.tar.gz && rm wordpress-7.1.3-fr_FR.tar.gz
-RUN chown -R root:root /data/www/wordpress
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar /usr/local/bin/wp
-# copier la source dans le docker image
-#COPY ./conf/index.html /usr/share/nginx/html/index.html
-#COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+#RUN wget https://fr.wordpress.org/wordpress-7.1.3-fr_FR.tar.gz -P /data/www
+#RUN cd /data/www && tar -xzf wordpress-7.1.3-fr_FR.tar.gz && rm wordpress-7.1.3-fr_FR.tar.gz
+#RUN chown -R root:root /data/www/wordpress
+#RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+#RUN chmod +x wp-cli.phar
+#RUN mv wp-cli.phar /usr/local/bin/wp
 
-#RUN mkdir -p /etc/nginx/ssl
+COPY ./tools/wp_init.sh /usr/local/bin
+COPY ./conf/wp-config.php /var/www/html
+COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+
+RUN mkdir -p /var/www/html
 
 # indique quel port nginx ecoute
 EXPOSE 9000
 
 #CMD [ "nginx", "-g", "daemon off;" ]
 
-#RUN chmod +x /usr/local/bin/*.sh
+chmod +x /usr/local/bin/*.sh
 
 # quand le dockerfile sera execute cette partie sera automatiquement execute
 
-#ENTRYPOINT [ "/usr/local/bin/ssl_config.sh" ]
+ENTRYPOINT [ "/usr/local/bin/wp_init.sh" ]

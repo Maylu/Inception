@@ -32,9 +32,9 @@ services:
       - inception
     secrets:
       - db_password
-      - db_root_password
     depends on: 
-      - mariadb
+      mariadb:
+        condition: service_healthy
     env_file: .env
     restart: on-failure
 
