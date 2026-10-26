@@ -1,20 +1,18 @@
+#!/bin/bash
 
-if[ ! -f "/data/www/wordpress/wp-confing.php"]; then
-wget https://fr.wordpress.org/wordpress-7.1.3-fr_FR.tar.gz -P /var/www
-cd /var/www && tar -xzf wordpress-7.1.3-fr_FR.tar.gz && rm wordpress-7.1.3-fr_FR.tar.gz
-chown -R root:root /var/www/wordpress
-wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-mv wp-cli.phar /usr/local/bin/wp
+set -e 
 
-cp -rn /tmp/wordpress/* /var/www/wordpress/ || true
-rm -f /tmp/wordpress
+if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
     wp config create    --allow-root \
                 --dbname=$SQL_DATABASE \
                 --dbuser=$SQL_USER \
                 --dbpass=$SQL_PASSWORD \
                 --dbhost=mariadb:3306 --path='/var/www/wordpress' --allow-root
+
+fi
+
+if ! wp core is-installed --path='/var/www/wordpress' --allow-root; then
     wp core install \
                 --url=https://gcamara.42.fr \
                 --title="Hello World" \
@@ -22,9 +20,11 @@ rm -f /tmp/wordpress
                 --admin_password=$WP_ADMIN_PASS \
                 --admin_email=$WP_ADMIN_EMAIL --allow-root
     wp user create $WP_USER_NAME $WP_USER_EMAIL \
-                --user_pass= $WP_USER_PASS\
+                --user_pass=$WP_USER_PASS \
                 --role=author --allow-root
-
 fi
 
+chown -R www-data:www-data /var/www/wordpress
+
+mkdir -p /run/php
 /usr/sbin/php-fpm8.2 -F
