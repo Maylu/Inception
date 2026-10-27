@@ -2,12 +2,22 @@
 
 set -e 
 
+if [ -n "$WP_USER_PASS_FILE" ] && [ -f "$WP_USER_PASS_FILE" ]; then
+    WP_USER_PASS=$(cat "$WP_USER_PASS_FILE")
+    export WP_USER_PASS
+fi
+
+if [ -n "$WP_ADMIN_PASS_FILE" ] && [ -f "$WP_ADMIN_PASS_FILE" ]; then
+    WP_ADMIN_PASS=$(cat "$WP_ADMIN_PASS_FILE")
+    export WP_ADMIN_PASS
+fi
+
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
     wp config create    --allow-root \
                 --dbname=$SQL_DATABASE \
                 --dbuser=$SQL_USER \
-                --dbpass=$SQL_PASSWORD \
+                --dbpass=$WP_USER_PASS \
                 --dbhost=mariadb:3306 --path='/var/www/wordpress' --allow-root
 
 fi

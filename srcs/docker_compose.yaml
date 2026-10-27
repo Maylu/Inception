@@ -13,7 +13,6 @@ services:
       - wordpress:/data/www/wordpress
     networks:
       - inception
-    restart: unless-stopped
     env_file: .env
     restart: on-failure
 
@@ -32,10 +31,12 @@ services:
       - inception
     secrets:
       - db_password
-    depends on: 
-      mariadb:
-        condition: service_healthy
+    depends_on: 
+      - mariadb
     env_file: .env
+    environment:
+      WP_USER_PASS_FILE: /run/secrets/db_password
+      WP_ADMIN_PASS_FILE: /run/secrets/db_root_password
     restart: on-failure
 
   mariadb:
@@ -55,6 +56,9 @@ services:
       - db_password
       - db_root_password
     restart: unless-stopped
+    environment:
+      SQL_PASSWORD_FILE: /run/secrets/db_password
+      SQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
     env_file: .env
   
   # les donnees sont persistantes
@@ -62,18 +66,22 @@ volumes:
     mariadb:
       driver: local
       driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/Users/vboxuser/data/mariadb'
+        type: 'none'
+        o: 'bind'
+        device: '/home/vboxuser/data/mariadb'
     wordpress:
       driver: local
       driver_opts:
-      type: 'none'
-      o: 'bind
-      device: '/Users/vboxuser/data/wordpress'
+        type: 'none'
+        o: 'bind'
+        device: '/home/vboxuser/data/wordpress'
 
 secrets:
   db_password:
-    file: ..secrets/db_password.txt
+    file: ../secrets/db_password.txt
   db_root_password:
-    file: ..secrets/db_root_password.txt
+    file: ../secrets/db_root_password.txt
+
+networks:
+  inception:
+    driver: bridge

@@ -16,7 +16,7 @@ clean:
 	docker compose rm -f
 
 fclean: clean
-
+	docker volume
 re: fclean all
 
 .PHONY : all build up down clean fclean re
