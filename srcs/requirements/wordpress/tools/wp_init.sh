@@ -12,6 +12,9 @@ if [ -n "$WP_ADMIN_PASS_FILE" ] && [ -f "$WP_ADMIN_PASS_FILE" ]; then
     export WP_ADMIN_PASS
 fi
 
+cd /var/www/wordpress
+chmod -R 755 /var/www/wordpress
+
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
     wp config create    --allow-root \

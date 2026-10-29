@@ -3,6 +3,7 @@ FROM debian:bookworm
 
 RUN apt-get update && apt-get upgrade -y 
 RUN apt-get install mariadb-server -y
+RUN rm -rf var/lib/apt/lists/*
 
 # copier la source dans le docker image
 COPY ./conf/50-server.cnf etc/mysql/mariadb.conf.d/50-server.cnf
