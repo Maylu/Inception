@@ -31,6 +31,7 @@ services:
       - inception
     secrets:
       - db_password
+      - db_root_password
     depends_on: 
       - mariadb
     env_file: .env
