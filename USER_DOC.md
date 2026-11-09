@@ -1,67 +1,66 @@
-User Documentation
+# User Documentation
 
-Ce projet sert a installer un systeme de stacks, pour fqire demarrer un site wordpress avec docker compose
+Ce projet sert à installer un système de stack permettant de démarrer un site WordPress avec Docker Compose.
 
-◦ Understand what services are provided by the stack.
+## Comprendre les services fournis par la stack
 
-nous qons en tout trois services instllées dqns chaque docker
+Nous avons en tout trois services, chacun installé dans son propre conteneur Docker.
 
-NGINX
+### NGINX
 
-il s'agit d'un logiciel libre et open sources qui fonctionne comme un serveur web http, un proxy inverse un répartiseur de tache et un cache de contenu
-serveur web
-    concu pour servir des fichiers statique
-Reverse proxy
-    intercepte des requetes des clients et les trqnsmets q des serveurs bqckend en protegeqnt leur identite
-repqtitsur de chqrge
-    distribue le trqfic entrqnt sur plusieurs serveurs pour eviter le surchqge
-cqche
+Logiciel libre et open source qui fonctionne comme :
 
-MARIADB
+- **Serveur web** : conçu pour servir des fichiers statiques.
+- **Reverse proxy** : intercepte les requêtes des clients et les transmet aux serveurs backend en protégeant leur identité.
+- **Répartiteur de charge** : distribue le trafic entrant sur plusieurs serveurs pour éviter la surcharge.
+- **Cache de contenu** : stocke temporairement les réponses pour accélérer le chargement des pages.
 
-il s'agit d'un systeme de gestion de bqse deonnées, un derivé de MySQL
+### MariaDB
 
-ZORDPRESS
+Système de gestion de base de données, dérivé de MySQL.
 
-systeme de gestion de conteun libre et opensourcequi permet de creer des sites internets des blogs ou des boutiques en ligne
+### WordPress
 
-stocker temporqirement les rponses pour acceler le chqrgemnt des pqges
+Système de gestion de contenu libre et open source qui permet de créer des sites internet, des blogs ou des boutiques en ligne.
 
-◦ Access the website and the administration panel.
+## Accéder au site web et au panneau d'administration
 
-Website: https://abelov.42.fr:443 (or https://localhost:443 if hosts file not configured)
-Admin Panel: https://abelov.42.fr:443/wp-admin
+- **Site web** : https://gcamara.42.fr:443
+- **Panneau d'administration** : https://gcamara.42.fr:443/wp-admin
 
-◦ Locate and manage credentials.
+## Localiser et gérer les identifiants
 
-Les credentials sont stockes a deux endroits differents, l'un dans srcs/.env pour les informqtions de base du compte l'autre dans secrets/.
+Les identifiants (credentials) sont stockés à deux endroits différents :
 
-ces informations doiceent etre changes avant que les dockers ne 
+- `srcs/.env` : informations de base du compte.
+- `secrets/` : mots de passe et données sensibles.
 
-◦ Check that the services are running correctly.
+Ces informations doivent être changées avant que les conteneurs ne soient lancés *(à compléter : la phrase était inachevée dans ton texte)*.
 
+## Vérifier que les services fonctionnent correctement
 
-Pour voir tous les systemes dockers actifs
+Pour voir tous les conteneurs Docker (actifs ou non) :
 
-```
+```bash
 docker ps -a
 ```
 
-ou 
-```
+ou :
+
+```bash
 docker compose -f srcs/docker-compose.yml ps
 ```
 
-◦ Start and stop the project.
+## Démarrer et arrêter le projet
 
-build image
+Construire les images et lancer les conteneurs :
 
-Run dockers
-```
+```bash
 make up
 ```
 
-Stop
-```
+Arrêter le projet :
+
+```bash
 make clean
 ```

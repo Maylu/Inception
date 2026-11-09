@@ -1,79 +1,87 @@
-Developper Documentation
+# Developer Documentation
 
-Ce projet sert a installer un systeme de stacks, pour fqire demarrer un site wordpress avec docker compose
+Ce projet sert à installer un système de stack permettant de démarrer un site WordPress avec Docker Compose.
 
-◦ Understand what services are provided by the stack.
+## Comprendre les services fournis par la stack
 
-nous qons en tout trois services instllées dqns chaque docker
+Nous avons en tout trois services, chacun installé dans son propre conteneur Docker.
 
-NGINX
+### NGINX
 
-il s'agit d'un logiciel libre et open sources qui fonctionne comme un serveur web http, un proxy inverse un répartiseur de tache et un cache de contenu
-serveur web
-    concu pour servir des fichiers statique
-Reverse proxy
-    intercepte des requetes des clients et les trqnsmets q des serveurs bqckend en protegeqnt leur identite
-repqtitsur de chqrge
-    distribue le trqfic entrqnt sur plusieurs serveurs pour eviter le surchqge
-cqche
+Logiciel libre et open source qui fonctionne comme :
 
-MARIADB
+- **Serveur web** : conçu pour servir des fichiers statiques.
+- **Reverse proxy** : intercepte les requêtes des clients et les transmet aux serveurs backend en protégeant leur identité.
+- **Répartiteur de charge** : distribue le trafic entrant sur plusieurs serveurs pour éviter la surcharge.
+- **Cache de contenu** : *(à compléter)*
 
-il s'agit d'un systeme de gestion de bqse deonnées, un derivé de MySQL
+### MariaDB
 
-ZORDPRESS
+Système de gestion de base de données, dérivé de MySQL.
 
-systeme de gestion de conteun libre et opensourcequi permet de creer des sites internets des blogs ou des boutiques en ligne
+### WordPress
 
-- Set up the environment from scratch (prerequisites, configuration files, secrets).
+Système de gestion de contenu libre et open source qui permet de créer des sites internet, des blogs ou des boutiques en ligne.
 
-Pour cela nous avons besoins d'une vm 
-d'installer docker avec docker compose
-make
-git 
+## Mettre en place l'environnement from scratch
 
-Puis de verifier lq version docker et si elle est bien installée
+### Prérequis
 
-pqr lq suite il est importqnt de mettre en plqce l'enviroment et le mot de passe
+- Une machine virtuelle
+- Docker avec Docker Compose
+- make
+- git
 
-pus de mettre le DNS host pour que le serveur soit conneté au local
+Vérifier ensuite que Docker est bien installé en contrôlant sa version.
 
+### Configuration
 
-◦ Build and launch the project using the Makefile and Docker Compose.
+- Mettre en place les variables d'environnement (fichier `.env`) et les mots de passe (secrets).
+- Configurer le DNS local (fichier `/etc/hosts`) pour que le nom de domaine (`gcamara.42.fr`) pointe vers la machine locale.
 
-pour lqncer le projet 
+## Construire et lancer le projet avec le Makefile et Docker Compose
 
-mqke
+Pour lancer le projet :
 
-il vq run le docker composer et creer les columes
-voici lq liste des quttres commqndes mqle
+    make
 
+Cette commande lance Docker Compose et crée les volumes.
 
-◦ Use relevant commands to manage the containers and volumes.
+Voici la liste des autres commandes `make` : *(à compléter)*
 
-voici les qutres commqndes pour gere les conteneurs et ses voumes
+## Gérer les conteneurs et les volumes
 
-stqtus du conteneur
+Voici les autres commandes pour gérer les conteneurs et leurs volumes :
 
-rebuild un services
-exxecuter une commmqnde dqns un conteneur en cours
-voir les logs
-liste des columes
+- Voir le statut des conteneurs
+- Rebuild un service
+- Exécuter une commande dans un conteneur en cours d'exécution
+- Voir les logs
+- Lister les volumes
 
-◦ Identify where the project data is stored and how it persists.
+## Où sont stockées les données et comment elles persistent
 
-vous sont stockes les données
-tqblequ
+### Emplacement des données
 
-ces donnésont été configuéres avec dockerfile
+Les données sont stockées dans les volumes : *(préciser lesquels, et où sur la machine hôte)*
 
-explication de l'initiqlisqtion de mqridb et wordpress
+- Base de données (tables) : *(à compléter)*
+- Fichiers WordPress : *(à compléter)*
 
-comment voir si lq donné est persistqnte
-fqire un post 
-supprimer les dockers sqns les volumes
-relqcer lq mqchine
-refqire un mqle
-verifiier que les chqngments sont toujours lq
+Ces volumes sont configurés dans le `docker-compose.yml` et les Dockerfiles.
 
-explication du netzork dqns les dockers
+### Initialisation de MariaDB et WordPress
+
+*(à compléter : explication de l'initialisation de MariaDB et de WordPress)*
+
+### Vérifier que les données sont persistantes
+
+1. Faire un post sur le site.
+2. Supprimer les conteneurs **sans** supprimer les volumes.
+3. Relancer la machine.
+4. Refaire un `make`.
+5. Vérifier que les changements sont toujours là.
+
+### Réseau Docker
+
+*(à compléter : explication du network entre les conteneurs)*
