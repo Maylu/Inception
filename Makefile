@@ -1,4 +1,4 @@
-NAME= srcs/docker_compose.yaml
+NAME=srcs/docker_compose.yaml
 VOLUME=/home/vboxuser/data
 
 all: build up

@@ -34,9 +34,11 @@ Dans le cas de Docker, les deux sont utiles : les variables d'environnement tran
 
 ## Docker Network vs Host Network
 
-*(à compléter)*
-
-## Docker Volumes vs Bind Mounts
+Le docker network donne la capacite a un conteneur de se connecter et de communiquer entre eux dans un reseau sans passer par un service tiers,
+Mais le host network consiste a partager a pile et 4espace de noms reseau de a machine hote
+Le docker network donne la capacite a un conteneur de se connecter et de communiquer entre eux dans un reseau sans passer par un service tiers,
+Mais le host network consiste a partager a pile et 4espace de noms reseau de a machine hote
+◦ Docker Volumes vs Bind Mounts
 
 Ce sont deux manières de stocker et partager des données persistantes entre le conteneur et l'hôte, mais elles diffèrent dans la gestion des données et leur accessibilité.
 
@@ -63,11 +65,7 @@ Le volume est géré par Docker et convient parfaitement aux données persistant
 Oui, avec un GUI, sur une machine qui possède seulement 8 Go de RAM, je partirais sur :
 
     RAM VM : 4 Go → recommandé
-
     CPU : 2 cœurs
-
     Disque : 30–40 Go
-
     Mémoire vidéo : 128 Mo si ton logiciel de virtualisation le permet
-
     Swap dans la VM : 2–4 Go
