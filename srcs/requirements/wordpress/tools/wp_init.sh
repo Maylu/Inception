@@ -16,13 +16,11 @@ cd /var/www/wordpress
 chmod -R 755 /var/www/wordpress
 
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
-
     wp config create    --allow-root \
                 --dbname=$SQL_DATABASE \
                 --dbuser=$SQL_USER \
                 --dbpass=$WP_USER_PASS \
                 --dbhost=mariadb:3306 --path='/var/www/wordpress' --allow-root
-
 fi
 
 if ! wp core is-installed --path='/var/www/wordpress' --allow-root; then

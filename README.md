@@ -38,6 +38,7 @@ Le docker network donne la capacite a un conteneur de se connecter et de communi
 Mais le host network consiste a partager a pile et 4espace de noms reseau de a machine hote
 Le docker network donne la capacite a un conteneur de se connecter et de communiquer entre eux dans un reseau sans passer par un service tiers,
 Mais le host network consiste a partager a pile et 4espace de noms reseau de a machine hote
+
 ◦ Docker Volumes vs Bind Mounts
 
 Ce sont deux manières de stocker et partager des données persistantes entre le conteneur et l'hôte, mais elles diffèrent dans la gestion des données et leur accessibilité.
@@ -50,9 +51,9 @@ Le volume est géré par Docker et convient parfaitement aux données persistant
 | Chemin | Demande un chemin absolu sur l'hôte | Docker gère le chemin de stockage |
 | Gestion | Directement via le système de fichiers de l'hôte | Via la CLI ou l'API Docker |
 | Portabilité | Dépend de la structure des répertoires de l'hôte | Plus portable entre les environnements |
-| Partage entre conteneurs | *(à compléter)* | Peut être partagé de manière sécurisée |
-| Gestion des données | *(à compléter)* | *(à compléter)* |
-| Idéal pour | *(à compléter)* | *(à compléter)* |
+| Partage entre conteneurs | peut etre pqrtqge mais depend de l'hote | Peut être partagé de manière sécurisée |
+| Gestion des données | l'utilisateur control le repertoire hote | docker gere et cree les repertoire |
+| Idéal pour | Developpement et acces direct aux donnes de l'hote | la persistance et la prodution |
 
 ## Resources
 
@@ -60,12 +61,27 @@ Le volume est géré par Docker et convient parfaitement aux données persistant
 
 ## Instructions
 
-*(à compléter)*
+Construire les images et lancer les conteneurs :
 
-Oui, avec un GUI, sur une machine qui possède seulement 8 Go de RAM, je partirais sur :
+```bash
+make
+```
 
-    RAM VM : 4 Go → recommandé
-    CPU : 2 cœurs
-    Disque : 30–40 Go
-    Mémoire vidéo : 128 Mo si ton logiciel de virtualisation le permet
-    Swap dans la VM : 2–4 Go
+Arrêter le projet :
+
+```bash
+make stop
+```
+
+Effacer le projet :
+
+Sans les volumes.
+```bash
+make clean 
+```
+
+Avec les volumes.
+```bash
+make fclean 
+```
+

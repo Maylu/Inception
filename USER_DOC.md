@@ -56,11 +56,23 @@ docker compose -f srcs/docker-compose.yml ps
 Construire les images et lancer les conteneurs :
 
 ```bash
-make up
+make
 ```
 
 Arrêter le projet :
 
 ```bash
-make clean
+make stop
+```
+
+Effacer le projet :
+
+Sans les volumes.
+```bash
+make clean 
+```
+
+Avec les volumes.
+```bash
+make fclean 
 ```

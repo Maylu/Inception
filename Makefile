@@ -1,5 +1,5 @@
 NAME=srcs/docker_compose.yaml
-VOLUME=/home/vboxuser/data
+VOLUME=/home/gcamara/data
 
 all: build up
 
@@ -16,6 +16,9 @@ up:
 down:
 	docker compose -f $(NAME) down
 
+stop:
+	docker compose -f $(NAME) stop
+
 clean:
 	docker compose -f $(NAME) down
 
@@ -24,4 +27,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY : all build up down clean fclean re
+.PHONY : all build up down stop clean fclean re

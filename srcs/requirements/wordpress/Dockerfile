@@ -16,7 +16,6 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./tools/wp_init.sh /usr/local/bin
-# COPY ./conf/wp-config.php /var/www/html
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
 RUN mkdir -p /var/www/wordpress
